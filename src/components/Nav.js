@@ -1,7 +1,21 @@
 import React from 'react'
+import { Router, Link } from "@reach/router";
+import Settings from '../Settings'
 
 const Nav = () => (
-  <p>Navigation</p>
+  <>
+    <Router>
+      <Settings path="/settings" />
+    </Router>
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/settings">Settings</Link>
+      </li>
+    </ul>
+  </>
 )
 
 export default Nav;
