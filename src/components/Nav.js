@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Link } from "@reach/router";
-import Settings from '../Settings'
+import Settings from '../Pages/Settings'
 
 const Nav = () => (
   <>

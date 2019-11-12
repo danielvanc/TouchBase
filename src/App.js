@@ -1,8 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet'
+import { Router, Link } from "@reach/router"
 import styled from 'styled-components'
 import Header from './components/Header'
-import UserGrid from './components/UserGrid/UserGrid'
+import Home from './Pages/Home'
+import Settings from './Pages/Settings'
 
 const AppContainer = styled.div`
   border: 1px solid #000;
@@ -10,17 +12,22 @@ const AppContainer = styled.div`
   max-width: 900px;
 `
 
+const HomePage = () => <Home />
+const SettingsPage = () => <Home />
+
 function App() {
   return (
     <AppContainer>
-      <Header />
       <Helmet>
         <title>Touchbase - your personal address book.</title>
       </Helmet>
+      <Header />
 
-      <UserGrid />
-
-      <p>Thet's start building!</p>
+      <Router>
+        <HomePage path="/" />
+        <Settings path="/Settings" />
+      </Router>
+      
     </AppContainer>
   );
 }
