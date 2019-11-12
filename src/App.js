@@ -10,6 +10,7 @@ const AppContainer = styled.div`
   border: 1px solid #000;
   margin: 0 auto;
   max-width: 900px;
+  padding: 10px;
 `
 
 const HomePage = () => <Home />

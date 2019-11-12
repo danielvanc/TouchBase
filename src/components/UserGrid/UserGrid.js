@@ -1,10 +1,17 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import debounce from "lodash.debounce"
 import styled from 'styled-components'
 
-const CatalogComplete = styled.div`
-
+const ContactsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min-content, 450px));
 `
+const Contact = styled.div`
+  display: flex;
+  padding: 0 0 20px 0;
+`
+const CatalogComplete = styled.div``
+
 const LoadingArea = styled.div`
     --loader-dot--size: 20px;
     --loader-width: 250px;
@@ -289,10 +296,9 @@ const UserGrid = () => {
     <>
       <h1>All Users</h1>
       <p>Scroll down to load more!!</p>
-      {users.map(user => (
-        <Fragment key={user.username}>
-          <hr />
-          <div className="userDiv" style={{ display: 'flex' }}>
+      <ContactsGrid>
+        {users.map(user => (
+          <Contact key={user.username}>
             <img
               alt={user.username}
               src={user.photo}
@@ -310,10 +316,10 @@ const UserGrid = () => {
               <p>Name: {user.name}</p>
               <p>Email: {user.email}</p>
             </div>
-          </div>
-        </Fragment>
-      ))}
-      <hr />
+          </Contact>
+        ))}
+      </ContactsGrid>
+
       {error &&
         <div style={{ color: '#900' }}>
           {error}
