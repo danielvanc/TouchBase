@@ -1,6 +1,50 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import debounce from "lodash.debounce"
+import styled from 'styled-components'
 
+const CatalogComplete = styled.div`
+
+`
+const LoadingArea = styled.div`
+    --loader-dot--size: 20px;
+    --loader-width: 250px;
+    height: 100vh;
+    width: 100vw;
+    font-family: Helvetica;
+    position: relative;
+
+  .loader {
+    height: var(--loader-dot--size);
+    width: var(--loader-width);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    
+    &--text {
+      position: absolute;
+      top: 200%;
+      left: 0;
+      right: 0;
+      width: 4rem;
+      margin: auto;
+
+      &:after {
+        content: "Loading";
+        font-weight: bold;
+        animation: loading-text 3s infinite;
+      }
+    }
+  }
+  @keyframes loading-text {
+    0% { content: "Loading" }
+    25% { content: "Loading." }
+    50% { content: "Loading.."} 
+    75% { content: "Loading..." }
+  }
+`
 
 const UserGrid = () => {
 
@@ -276,10 +320,17 @@ const UserGrid = () => {
         </div>
       }
       {isLoading &&
-        <div>Loading...</div>
+        <LoadingArea>
+          <div className="loader">
+          {/* Loading... */}
+            <div className="loader--text"></div>
+          </div>
+        </LoadingArea>
       }
       {!hasMore &&
-        <div>You did it! You reached the end!</div>
+        <CatalogComplete>
+          <p>End of users catalog!</p>
+        </CatalogComplete>
       } 
     </>
   );
