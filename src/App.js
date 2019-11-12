@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet'
-import { Router, Link } from "@reach/router"
+import { Router } from "@reach/router"
 import styled from 'styled-components'
 import Header from './components/Header'
 import Home from './Pages/Home'
@@ -13,7 +13,7 @@ const AppContainer = styled.div`
 `
 
 const HomePage = () => <Home />
-const SettingsPage = () => <Home />
+const SettingsPage = () => <Settings />
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
 
       <Router>
         <HomePage path="/" />
-        <Settings path="/Settings" />
+        <SettingsPage path="/Settings" />
       </Router>
       
     </AppContainer>
