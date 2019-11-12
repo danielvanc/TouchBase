@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import Header from './components/Header'
+import UserGrid from './components/UserGrid/UserGrid'
 
 const AppContainer = styled.div`
   border: 1px solid #000;
@@ -16,6 +17,9 @@ function App() {
       <Helmet>
         <title>Touchbase - your personal address book.</title>
       </Helmet>
+
+      <UserGrid />
+
       <p>Thet's start building!</p>
     </AppContainer>
   );
