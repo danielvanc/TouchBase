@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import debounce from "lodash.debounce"
 import styled from 'styled-components'
+import Contact from './Contact'
 
 const ContactsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min-content, 450px));
-`
-const Contact = styled.div`
-  display: flex;
-  padding: 0 0 20px 0;
 `
 const CatalogComplete = styled.div``
 
@@ -298,25 +295,7 @@ const UserGrid = () => {
       <p>Scroll down to load more!!</p>
       <ContactsGrid>
         {users.map(user => (
-          <Contact key={user.username}>
-            <img
-              alt={user.username}
-              src={user.photo}
-              style={{
-                borderRadius: '50%',
-                height: 72,
-                marginRight: 20,
-                width: 72,
-              }}
-            />
-            <div>
-              <h2 style={{ marginTop: 0 }}>
-                @{user.username}
-              </h2>
-              <p>Name: {user.name}</p>
-              <p>Email: {user.email}</p>
-            </div>
-          </Contact>
+          <Contact key={user.username} user={user} />
         ))}
       </ContactsGrid>
 
