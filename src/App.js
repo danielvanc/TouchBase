@@ -4,7 +4,7 @@ import { Router } from "@reach/router"
 import styled from 'styled-components'
 import Header from './components/Header'
 import Home from './Pages/Home'
-import Settings from './Pages/Settings'
+import Preferences from './Pages/Preferences'
 
 const AppContainer = styled.div`
   border: 1px solid #000;
@@ -14,7 +14,7 @@ const AppContainer = styled.div`
 `
 
 const HomePage = () => <Home />
-const SettingsPage = () => <Settings />
+const PreferencesPage = () => <Preferences />
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
 
       <Router>
         <HomePage path="/" />
-        <SettingsPage path="/Settings" />
+        <PreferencesPage path="/Preferences" />
       </Router>
       
     </AppContainer>

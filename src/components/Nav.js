@@ -1,18 +1,18 @@
 import React from 'react'
 import { Router, Link } from "@reach/router";
-import Settings from '../Pages/Settings'
+import Preferences from '../Pages/Preferences'
 
 const Nav = () => (
   <>
     <Router>
-      <Settings path="/settings" />
+      <Preferences path="/preferences" />
     </Router>
     <ul>
       <li>
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/settings">Settings</Link>
+        <Link to="/preferences">Preferences</Link>
       </li>
     </ul>
   </>
