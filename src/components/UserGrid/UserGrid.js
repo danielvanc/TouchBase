@@ -179,7 +179,13 @@ const UserGrid = () => {
         photo: user.picture.medium,
         username: user.login.username,
         uuid: user.login.uuid,
-        id: user.id.value
+        id: user.id.value,
+        street: user.location.street,
+        city: user.location.city,
+        state: user.location.state,
+        postcode: user.location.postcode,
+        phone: user.phone,
+        cell: user.cell
       }));
 
       // Update hasMore state var so that we can check if we should load any more data
@@ -211,7 +217,13 @@ const UserGrid = () => {
         photo: user.picture.medium,
         username: user.login.username,
         uuid: user.login.uuid,
-        id: user.id.value
+        id: user.id.value,
+        street: user.location.street,
+        city: user.location.city,
+        state: user.location.state,
+        postcode: user.location.postcode,
+        phone: user.phone,
+        cell: user.cell
       }));
 
       // Update hasMore state var so that we can check if we should load any more data

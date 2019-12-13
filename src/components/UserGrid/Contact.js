@@ -12,10 +12,7 @@ const Contact = ({ user }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [userDetails, setUserDetails] = useState({"user": "details here"})
   
-  const handleContactClick = (e) => {
-    console.log('Clicked!');
-    const selectedUser = e.currentTarget;
-
+  const handleContactClick = () => {
     setModalOpen(!modalOpen);
     setUserDetails(user)
   }
@@ -43,7 +40,20 @@ const Contact = ({ user }) => {
       {
         modalOpen && (
           <Modal>
-            {userDetails.username}
+            {
+              console.log(userDetails)
+            }
+            {userDetails.name} <br />
+            @{userDetails.username} <br />
+            {userDetails.street.number} <br />
+            {userDetails.street.name} <br />
+            {userDetails.city} <br />
+            {userDetails.state} <br />
+            {userDetails.postcode} <br />
+            {userDetails.phone} <br />
+            {userDetails.cell} <br />
+            <img src={userDetails.photo} alt="" />
+            <button type="button" onClick={() => setModalOpen(!modalOpen)}>Close Modal</button>
           </Modal>
         )
       }
