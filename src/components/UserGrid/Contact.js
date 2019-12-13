@@ -1,15 +1,23 @@
-import React from 'react';
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Modal from '../../Modal';
+
 
 const ContactComp = styled.div`
   display: flex;
   padding: 0 0 20px 0;
 `
+
 const Contact = ({ user }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState({"user": "details here"})
   
   const handleContactClick = (e) => {
     console.log('Clicked!');
     const selectedUser = e.currentTarget;
+
+    setModalOpen(!modalOpen);
+    setUserDetails(user)
   }
 
   return (
@@ -32,6 +40,13 @@ const Contact = ({ user }) => {
         <p>Email: {user.email}</p>
         <button type="button">Details</button>
       </div>
+      {
+        modalOpen && (
+          <Modal>
+            {userDetails.username}
+          </Modal>
+        )
+      }
     </ContactComp>
   );
 };
