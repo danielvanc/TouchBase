@@ -172,12 +172,14 @@ const UserGrid = () => {
   */
   const prefetchData = () => {
     loadUpUsers().then(({ results }) => {
+      console.log(`hi ${results}`);
       nextUsers = results.map(user => ({
         email: user.email,
         name: Object.values(user.name).join(' '),
         photo: user.picture.medium,
         username: user.login.username,
         uuid: user.login.uuid,
+        id: user.id.value
       }));
 
       // Update hasMore state var so that we can check if we should load any more data
@@ -209,6 +211,7 @@ const UserGrid = () => {
         photo: user.picture.medium,
         username: user.login.username,
         uuid: user.login.uuid,
+        id: user.id.value
       }));
 
       // Update hasMore state var so that we can check if we should load any more data

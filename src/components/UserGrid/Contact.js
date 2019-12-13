@@ -5,9 +5,15 @@ const ContactComp = styled.div`
   display: flex;
   padding: 0 0 20px 0;
 `
-const Contact = ({user}) => {
+const Contact = ({ user }) => {
+  
+  const handleContactClick = (e) => {
+    console.log('Clicked!');
+    const selectedUser = e.currentTarget;
+  }
+
   return (
-    <ContactComp key={user.username}>
+    <ContactComp data-userid={user.id} onClick={handleContactClick} key={user.username}>
       <img
         alt={user.username}
         src={user.photo}
@@ -24,6 +30,7 @@ const Contact = ({user}) => {
         </h2>
         <p>Name: {user.name}</p>
         <p>Email: {user.email}</p>
+        <button type="button">Details</button>
       </div>
     </ContactComp>
   );
