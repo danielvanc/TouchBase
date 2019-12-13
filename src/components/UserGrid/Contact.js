@@ -10,7 +10,7 @@ const ContactComp = styled.div`
 
 const Contact = ({ user }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [userDetails, setUserDetails] = useState({"user": "details here"})
+  const [userDetails, setUserDetails] = useState({})
   
   const handleContactClick = () => {
     setModalOpen(!modalOpen);

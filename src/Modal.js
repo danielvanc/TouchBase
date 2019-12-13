@@ -26,8 +26,12 @@ const Modal = ({ children }) => {
   }
 
   useEffect(() => {
-    modalRoot.appendChild(modalRef.current)
-    return () => modalRoot.removeChild(modalRef.current)
+    document.body.style.overflow = 'hidden';
+    modalRoot.appendChild(modalRef.current);
+    return () => {
+      modalRoot.removeChild(modalRef.current);
+      document.body.style.overflow = 'unset';
+    }
   }, [modalRoot])
 
   return createPortal(<ModalBox>{children}</ModalBox>, modalRef.current)
