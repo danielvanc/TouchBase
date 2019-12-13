@@ -25,7 +25,7 @@ function App() {
       <Header />
 
       <Router>
-        <HomePage path="/" />
+        <Home path="/" />
         <PreferencesPage path="/Preferences" />
       </Router>
       

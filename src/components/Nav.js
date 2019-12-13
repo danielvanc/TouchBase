@@ -4,9 +4,6 @@ import Preferences from '../Pages/Preferences'
 
 const Nav = () => (
   <>
-    <Router>
-      <Preferences path="/preferences" />
-    </Router>
     <ul>
       <li>
         <Link to="/">Home</Link>
@@ -15,6 +12,9 @@ const Nav = () => (
         <Link to="/preferences">Preferences</Link>
       </li>
     </ul>
+    <Router>
+      <Preferences path="/preferences" />
+    </Router>
   </>
 )
 

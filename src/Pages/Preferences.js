@@ -1,7 +1,11 @@
 import React from 'react'
+import Nationalities from '../components/nationalities'
 
 const PreferencesPage = () => (
-  <p>Preferences Page</p>
+  <>
+    <h1>Preferences Page</h1>
+    <Nationalities />
+  </>
 )
 
 export default PreferencesPage;
