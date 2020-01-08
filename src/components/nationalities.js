@@ -5,11 +5,11 @@ const nationalities = () => {
     e.preventDefault()
     console.log('Handling submit...');
     // TODO:
-    // 1. Gather what's been selected
 
-    const selectedOptions = document.querySelectorAll('input[type="checkbox"]').length;
-    const options = Object.create(selectedOptions);
-    console.log(selectedOptions);
+    // 1. Gather what's been selected
+    const selectedOptions = document.querySelectorAll('input[type="checkbox"]:checked');
+    const options = { ...selectedOptions }
+    console.log(options);
 
 
     // 2. Add state further up in app
