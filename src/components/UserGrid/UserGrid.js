@@ -50,7 +50,7 @@ const LoadingArea = styled.div`
   }
 `
 
-const UserGrid = () => {
+const UserGrid = ({nations}) => {
 
   /**
    * @type {number} 
@@ -172,7 +172,7 @@ const UserGrid = () => {
   */
   const prefetchData = () => {
     loadUpUsers().then(({ results }) => {
-      
+
       nextUsers = results.map(user => ({
         email: user.email,
         name: Object.values(user.name).join(' '),
