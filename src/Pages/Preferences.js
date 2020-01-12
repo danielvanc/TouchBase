@@ -1,11 +1,11 @@
 import React from 'react'
 import Nationalities from '../components/nationalities'
 
-const PreferencesPage = () => (
+const PagePreferences = ({setNations}) => (
   <>
     <h1>Preferences Page</h1>
-    <Nationalities />
+    <Nationalities hi="hi" setNations={setNations} />
   </>
 )
 
-export default PreferencesPage;
+export default PagePreferences;

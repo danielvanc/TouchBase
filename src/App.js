@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useContext, createContext, useState } from 'react';
 import { Helmet } from 'react-helmet'
-import { Router } from "@reach/router"
+import { Router, Link } from "@reach/router"
 import styled from 'styled-components'
-import Header from './components/Header'
 import Home from './Pages/Home'
 import Preferences from './Pages/Preferences'
 
@@ -13,24 +12,51 @@ const AppContainer = styled.div`
   padding: 10px;
 `
 
-const HomePage = () => <Home />
-const PreferencesPage = () => <Preferences />
+const Header = styled.div`
+`
 
-function App() {
+const App = () => {
+
+  const [nations, setNation] = useState([]);
+  
+  /**
+   * handler state func for setting nations in prefs page
+  */
+  
+  const handleNations = (nationsArray) => {
+    setNation(nationsArray)
+  } 
+
+  const HomePage = () => <Home />
+  const PreferencesPage = () => <Preferences setNations={handleNations} />
+
   return (
     <AppContainer>
+      
       <Helmet>
         <title>Touchbase - your personal address book.</title>
       </Helmet>
-      <Header />
+
+      <Header>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/preferences">Preferences</Link>
+          </li>
+        </ul>
+      </Header>
 
       <Router>
-        <HomePage path="/" />
-        <PreferencesPage path="/Preferences" />
+        <HomePage path="/" nations={nations} />
+        <PreferencesPage path="/preferences" />
       </Router>
-      
+    
     </AppContainer>
   );
+  
 }
+
 
 export default App;

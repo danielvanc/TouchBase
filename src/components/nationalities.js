@@ -1,21 +1,18 @@
 import React from 'react';
+import { navigate } from '@reach/router'
 
-const nationalities = () => {
+const nationalities = ({ setNations }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Handling submit...');
-    // TODO:
-
-    // 1. Gather what's been selected
     const selectedOptions = document.querySelectorAll('input[type="checkbox"]:checked');
-    const options = { ...selectedOptions }
-    console.log(options);
-
-
-    // 2. Add state further up in app
-    // 3. Update state with new nationality info
-    // 4. Check if state is populated
-    // 5. Update UserGrid info feed url with selected nationality info
+    const options = [ ...selectedOptions ]
+    const selectedNations = [];
+    options.forEach(el => {
+      selectedNations.push( el.getAttribute("id").slice(3)  )
+    })
+    
+    setNations(selectedNations)
+    navigate("/")
   }
   return (
     <form action="post" onSubmit={handleSubmit}>

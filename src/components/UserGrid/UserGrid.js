@@ -172,7 +172,7 @@ const UserGrid = () => {
   */
   const prefetchData = () => {
     loadUpUsers().then(({ results }) => {
-      console.log(`hi ${results}`);
+      
       nextUsers = results.map(user => ({
         email: user.email,
         name: Object.values(user.name).join(' '),
