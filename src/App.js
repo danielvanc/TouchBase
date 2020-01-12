@@ -27,7 +27,7 @@ const App = () => {
     setNation(nationsArray)
   } 
 
-  const HomePage = () => <Home />
+  const HomePage = () => <Home nations={nations} />
   const PreferencesPage = () => <Preferences setNations={handleNations} />
 
   return (
