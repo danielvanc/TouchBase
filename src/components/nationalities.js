@@ -2,11 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { navigate } from "@reach/router";
 import NationsContext from "../Stores";
 
-/**
- * TODO:
- * 1. Prefil checkbox's if items exist in state
- */
-
 const Nationalities = () => {
   const [nations, setNations] = useContext(NationsContext);
 
