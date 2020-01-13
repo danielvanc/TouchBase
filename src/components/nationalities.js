@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { navigate } from '@reach/router'
+import NationsContext from '../Stores';
 
-const nationalities = ({ setNations }) => {
+/**
+ * TODO:
+ * 1. Prefil checkbox's if items exist in state
+ */
+
+
+const Nationalities = () => {
+  const [nations, setNations] = useContext(NationsContext);
+
   const handleSubmit = (e) => {
     e.preventDefault()
+
     const selectedOptions = document.querySelectorAll('input[type="checkbox"]:checked');
     const options = [ ...selectedOptions ]
     const selectedNations = [];
@@ -11,6 +21,8 @@ const nationalities = ({ setNations }) => {
       selectedNations.push( el.getAttribute("id").slice(3)  )
     })
     
+    console.log(nations);
+
     setNations(selectedNations)
     navigate("/")
   }
@@ -48,4 +60,4 @@ const nationalities = ({ setNations }) => {
   );
 };
 
-export default nationalities;
+export default Nationalities;

@@ -3,6 +3,14 @@ import debounce from "lodash.debounce"
 import styled from 'styled-components'
 import Contact from './Contact'
 
+/**
+ * TODO
+ * 
+ * 1. Put fetch URL into a var
+ * 2. Append nations state prop onto fetch URL
+ * 3. Check the output is working by outputting their nationality in the grid
+ */
+
 const ContactsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min-content, 450px));
