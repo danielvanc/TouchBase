@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import debounce from "lodash.debounce"
-import styled from 'styled-components'
-import Contact from './Contact'
+import React, { useState, useEffect, useContext } from "react";
+import debounce from "lodash.debounce";
+import styled from "styled-components";
+import Contact from "./Contact";
+import NationsContext from "../../Stores";
 
 /**
  * TODO
- * 
+ *
  * 1. Put fetch URL into a var
  * 2. Append nations state prop onto fetch URL
  * 3. Check the output is working by outputting their nationality in the grid
@@ -14,16 +15,16 @@ import Contact from './Contact'
 const ContactsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min-content, 450px));
-`
-const CatalogComplete = styled.div``
+`;
+const CatalogComplete = styled.div``;
 
 const LoadingArea = styled.div`
-    --loader-dot--size: 20px;
-    --loader-width: 250px;
-    height: 100vh;
-    width: 100vw;
-    font-family: Helvetica;
-    position: relative;
+  --loader-dot--size: 20px;
+  --loader-width: 250px;
+  height: 100vh;
+  width: 100vw;
+  font-family: Helvetica;
+  position: relative;
 
   .loader {
     height: var(--loader-dot--size);
@@ -34,7 +35,7 @@ const LoadingArea = styled.div`
     left: 0;
     right: 0;
     margin: auto;
-    
+
     &--text {
       position: absolute;
       top: 200%;
@@ -51,69 +52,78 @@ const LoadingArea = styled.div`
     }
   }
   @keyframes loading-text {
-    0% { content: "Loading" }
-    25% { content: "Loading." }
-    50% { content: "Loading.."} 
-    75% { content: "Loading..." }
+    0% {
+      content: "Loading";
+    }
+    25% {
+      content: "Loading.";
+    }
+    50% {
+      content: "Loading..";
+    }
+    75% {
+      content: "Loading...";
+    }
   }
-`
+`;
 
-const UserGrid = ({nations}) => {
+const UserGrid = () => {
+  const [nations] = useContext(NationsContext);
+  console.log(`Nations selected: ${nations}`);
 
   /**
-   * @type {number} 
+   * @type {number}
    * Set total amount of records to retrieve
-  */
+   */
   const totalUsers = 40;
 
   /**
    * @type {number}
    * How many in each batch to retrieve
-  */
+   */
   const fetchAmount = 10;
 
   /**
    * @type {boolean}
    * Set the current error state
-  */
+   */
   const [error, setError] = useState(false);
 
   /**
    * @type {boolean}
    * Set whether there is any more to load
-  */
+   */
   const [hasMore, setHasMore] = useState(true);
 
   /**
    * @type {boolean}
    * Is the data loading?
-  */
+   */
   const [isLoading, setIsLoading] = useState(true);
 
   /**
    * @type {Array}
    * Array to hold the prefetch data
-  */
+   */
   const [preFetch, setPreFetch] = useState([]);
 
   /**
    * @type {Array}
    * Array to set the users and render on the page
-  */
+   */
   const [users, setUsers] = useState([]);
 
   /**
    * @type {Array}
    * Temporary array that retrieves the new users
-  */
+   */
   let nextUsers = {};
 
   /**
    * @type {boolean}
    * Status to know whether we have we done a preFetch
-  */
+   */
   const [doPreFetch, setDoPreFetch] = useState(false);
-
 
   /*
     Use lodash's debounce method for onscroll so that
@@ -124,11 +134,11 @@ const UserGrid = ({nations}) => {
 
     // Find where the bottom of the page is and check for it first.
     if (
-      window.innerHeight + document.documentElement.scrollTop
-      === document.documentElement.offsetHeight
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
     ) {
       // set the loading flag to true
-      setIsLoading(true)
+      setIsLoading(true);
       // Get the prefetched users | will not prefetch on initial page load
       collectUsers(false);
     } else {
@@ -140,177 +150,169 @@ const UserGrid = ({nations}) => {
         collectUsers(true);
       }
     }
-
   }, 100);
 
-
-
   /* eslint-disable react-hooks/exhaustive-deps */
+
   useEffect(() => {
     collectUsers();
-  }, [])
-
-
-
+  }, []);
 
   /**
-  * Function that collects the users from random me api and returns a promise
-  *
-  *
-  * @example
-  *
-  * loadUpUsers().then((data) => data)
-  */
+   * Function that collects the users from random me api and returns a promise
+   *
+   *
+   * @example
+   *
+   * loadUpUsers().then((data) => data)
+   */
   async function loadUpUsers() {
-    const res = await fetch(`https://randomuser.me/api/?results=${fetchAmount}`)
-    return await res.json()
+    const res = await fetch(
+      `https://randomuser.me/api/?results=${fetchAmount}`
+    );
+    return await res.json();
   }
-
-
 
   /**
    *  Function that preFetches data based ahead of time
    *  outputs it into the preFetch state variable, where later
    *  it adds it into the users state variable when at bottom
    *  of the page.
-   * 
+   *
    *  @example
-   * 
+   *
    *  prefetchData() - requires loadUpUsers() present
-  */
+   */
   const prefetchData = () => {
-    loadUpUsers().then(({ results }) => {
+    loadUpUsers()
+      .then(({ results }) => {
+        nextUsers = results.map(user => ({
+          email: user.email,
+          name: Object.values(user.name).join(" "),
+          photo: user.picture.medium,
+          username: user.login.username,
+          uuid: user.login.uuid,
+          id: user.id.value,
+          street: user.location.street,
+          city: user.location.city,
+          state: user.location.state,
+          postcode: user.location.postcode,
+          phone: user.phone,
+          cell: user.cell
+        }));
 
-      nextUsers = results.map(user => ({
-        email: user.email,
-        name: Object.values(user.name).join(' '),
-        photo: user.picture.medium,
-        username: user.login.username,
-        uuid: user.login.uuid,
-        id: user.id.value,
-        street: user.location.street,
-        city: user.location.city,
-        state: user.location.state,
-        postcode: user.location.postcode,
-        phone: user.phone,
-        cell: user.cell
-      }));
-
-      // Update hasMore state var so that we can check if we should load any more data
-      setHasMore((users.length < totalUsers))
-      // Set the preFetch state var to the newly loaded data, that later is merged into users state var
-      setPreFetch([...nextUsers]);
-      // set the loading state var flag to not loading
-      setIsLoading(false);
-      // Set this flag to true to say we've prefetched
-      setDoPreFetch(true);
-    }).catch((err) => {
-      setError(err.message);
-      setIsLoading(false);
-    });
-  }
-
+        // Update hasMore state var so that we can check if we should load any more data
+        setHasMore(users.length < totalUsers);
+        // Set the preFetch state var to the newly loaded data, that later is merged into users state var
+        setPreFetch([...nextUsers]);
+        // set the loading state var flag to not loading
+        setIsLoading(false);
+        // Set this flag to true to say we've prefetched
+        setDoPreFetch(true);
+      })
+      .catch(err => {
+        setError(err.message);
+        setIsLoading(false);
+      });
+  };
 
   /**
    *  Function that will fetch live data (should only run on initial page load)
    *  that also adds it into the users state variable, that then renders it to the page
-   * 
+   *
    *  @example prefetchData() - requires loadUpUsers present
-  */
+   */
   const getLiveData = () => {
-    loadUpUsers().then(({ results }) => {
-      nextUsers = results.map(user => ({
-        email: user.email,
-        name: Object.values(user.name).join(' '),
-        photo: user.picture.medium,
-        username: user.login.username,
-        uuid: user.login.uuid,
-        id: user.id.value,
-        street: user.location.street,
-        city: user.location.city,
-        state: user.location.state,
-        postcode: user.location.postcode,
-        phone: user.phone,
-        cell: user.cell
-      }));
+    loadUpUsers()
+      .then(({ results }) => {
+        nextUsers = results.map(user => ({
+          email: user.email,
+          name: Object.values(user.name).join(" "),
+          photo: user.picture.medium,
+          username: user.login.username,
+          uuid: user.login.uuid,
+          id: user.id.value,
+          street: user.location.street,
+          city: user.location.city,
+          state: user.location.state,
+          postcode: user.location.postcode,
+          phone: user.phone,
+          cell: user.cell
+        }));
 
-      // Update hasMore state var so that we can check if we should load any more data
-      setHasMore((users.length < totalUsers))
+        // Update hasMore state var so that we can check if we should load any more data
+        setHasMore(users.length < totalUsers);
 
-      // Merge the new data into the existing users state var
-      setUsers([...users, ...nextUsers])
+        // Merge the new data into the existing users state var
+        setUsers([...users, ...nextUsers]);
 
-      // set the loading state var flag to not loading
-      setIsLoading(false)
-    }).catch((err) => {
-      setError(err.message)
-      setIsLoading(false);
-    });
-  }
-
-
+        // set the loading state var flag to not loading
+        setIsLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setIsLoading(false);
+      });
+  };
 
   /**
    *  Function that prefetches data from the preFetch state var
    *  and adds it to the users state var, which intern, renders/updates
    *  the output on the page
-   * 
+   *
    *  @example
-   * 
+   *
    *  updateFromPreFetch()
-  */
+   */
   const updateFromPreFetch = () => {
     // Set whether we need to load any more users
-    setHasMore((users.length < totalUsers))
+    setHasMore(users.length < totalUsers);
     // Merge new data into original users array
 
-    setUsers([...users, ...preFetch])
+    setUsers([...users, ...preFetch]);
 
     // set loading state to false
-    setIsLoading(false)
+    setIsLoading(false);
 
     // set prefetch to false so that we can say not to prefetch on next render
     setDoPreFetch(false);
 
     // Clear the prefetch array ready for new data on next pre-fetch
-    setPreFetch([])
-  }
-
-
-
+    setPreFetch([]);
+  };
 
   /**
-  * Function that collects the users from random me api
-  *
-  * @param {boolean} - Trigger: Should we trigger a prefetch of the data?
-  *
-  * @example
-  *
-  *     collectUsers(true)
-  */
+   * Function that collects the users from random me api
+   *
+   * @param {boolean} - Trigger: Should we trigger a prefetch of the data?
+   *
+   * @example
+   *
+   *     collectUsers(true)
+   */
   const collectUsers = (trigger = false) => {
     /* 
       Set loading state to true so that the user is informed
       there is something happening, incase connection is slow.
     */
-    setIsLoading(true)
+    setIsLoading(true);
 
     // Trigger prefetching?
     if (trigger) {
       if (users.length === totalUsers) {
         setHasMore(0);
-        return
-      };
+        return;
+      }
       prefetchData();
     } else {
       // Don't preload fetch but check if preloaded array has data, if so, load that instead
       if (preFetch.length) {
-        updateFromPreFetch()
+        updateFromPreFetch();
       } else {
         getLiveData();
       }
     }
-  }
+  };
 
   return (
     <>
@@ -322,24 +324,20 @@ const UserGrid = ({nations}) => {
         ))}
       </ContactsGrid>
 
-      {error &&
-        <div style={{ color: '#900' }}>
-          {error}
-        </div>
-      }
-      {isLoading &&
+      {error && <div style={{ color: "#900" }}>{error}</div>}
+      {isLoading && (
         <LoadingArea>
           <div className="loader">
-          {/* Loading... */}
-            <div className="loader--text"></div>
+            {/* Loading... */}
+            <div className="loader--text" />
           </div>
         </LoadingArea>
-      }
-      {!hasMore &&
+      )}
+      {!hasMore && (
         <CatalogComplete>
           <p>End of users catalog!</p>
         </CatalogComplete>
-      } 
+      )}
     </>
   );
 };
