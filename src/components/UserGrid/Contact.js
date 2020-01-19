@@ -35,6 +35,7 @@ const Contact = ({ user }) => {
         </h2>
         <p>Name: {user.name}</p>
         <p>Email: {user.email}</p>
+        <p>Nationality: {user.nat}</p>
         <button type="button">Details</button>
       </div>
       {

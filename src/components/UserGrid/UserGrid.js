@@ -133,6 +133,7 @@ const UserGrid = () => {
    * loadUpUsers().then((data) => data)
    */
   async function loadUpUsers() {
+    console.log(`Loading nations... ${nations}`);
     const res = await fetch(
       `https://randomuser.me/api/?results=${fetchAmount}`
     );
@@ -164,7 +165,8 @@ const UserGrid = () => {
           state: user.location.state,
           postcode: user.location.postcode,
           phone: user.phone,
-          cell: user.cell
+          cell: user.cell,
+          nat: user.nat
         }));
 
         // Update hasMore state var so that we can check if we should load any more data
@@ -203,7 +205,8 @@ const UserGrid = () => {
           state: user.location.state,
           postcode: user.location.postcode,
           phone: user.phone,
-          cell: user.cell
+          cell: user.cell,
+          nat: user.nat
         }));
 
         // Update hasMore state var so that we can check if we should load any more data
