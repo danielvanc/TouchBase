@@ -4,14 +4,6 @@ import styled from "styled-components";
 import Contact from "./Contact";
 import NationsContext from "../../Stores";
 
-/**
- * TODO
- *
- * 1. Put fetch URL into a var
- * 2. Append nations state prop onto fetch URL
- * 3. Check the output is working by outputting their nationality in the grid
- */
-
 const ContactsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min-content, 450px));
@@ -68,61 +60,35 @@ const LoadingArea = styled.div`
 `;
 
 const UserGrid = () => {
+
+  /**
+  * TODO
+  * 2. Put fetch URL into a var
+  * 3. Append nations state prop onto fetch URL
+  * 4. Check the output is working by outputting their nationality in the grid
+  */
+  
+  /**
+   * nations:                   All the selected nations (if any)
+   * totalUsers:                Set total amount of records to retrieve
+   * fetchAmount:               How many in each batch to retrieve
+   * error/setError:            Set the current error state
+   * hasMore/setHasMore:        Set whether there is any more to load
+   * isLoading/setIsLoading:    Is the data loading?
+   * preFetch/setPreFetch:      Array to hold the prefetch data
+   * users/setUsers:            Array to set the users and render on the page
+   * nextUsers:                 Temporary array that retrieves the new users
+   * doPreFetch: setDoPreFetch: Status to know whether we have we done a preFetch
+   */
   const [nations] = useContext(NationsContext);
-  console.log(`Nations selected: ${nations}`);
-
-  /**
-   * @type {number}
-   * Set total amount of records to retrieve
-   */
   const totalUsers = 40;
-
-  /**
-   * @type {number}
-   * How many in each batch to retrieve
-   */
   const fetchAmount = 10;
-
-  /**
-   * @type {boolean}
-   * Set the current error state
-   */
   const [error, setError] = useState(false);
-
-  /**
-   * @type {boolean}
-   * Set whether there is any more to load
-   */
   const [hasMore, setHasMore] = useState(true);
-
-  /**
-   * @type {boolean}
-   * Is the data loading?
-   */
   const [isLoading, setIsLoading] = useState(true);
-
-  /**
-   * @type {Array}
-   * Array to hold the prefetch data
-   */
   const [preFetch, setPreFetch] = useState([]);
-
-  /**
-   * @type {Array}
-   * Array to set the users and render on the page
-   */
   const [users, setUsers] = useState([]);
-
-  /**
-   * @type {Array}
-   * Temporary array that retrieves the new users
-   */
   let nextUsers = {};
-
-  /**
-   * @type {boolean}
-   * Status to know whether we have we done a preFetch
-   */
   const [doPreFetch, setDoPreFetch] = useState(false);
 
   /*

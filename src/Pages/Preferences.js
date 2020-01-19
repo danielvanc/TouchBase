@@ -4,7 +4,7 @@ import Nationalities from '../components/nationalities'
 const PagePreferences = ({setNations}) => (
   <>
     <h1>Preferences Page</h1>
-    <Nationalities hi="hi" setNations={setNations} />
+    <Nationalities setNations={setNations} />
   </>
 )
 
