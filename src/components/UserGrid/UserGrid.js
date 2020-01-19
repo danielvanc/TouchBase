@@ -60,13 +60,6 @@ const LoadingArea = styled.div`
 `;
 
 const UserGrid = () => {
-
-  /**
-  * TODO
-  * 2. Put fetch URL into a var
-  * 3. Append nations state prop onto fetch URL
-  * 4. Check the output is working by outputting their nationality in the grid
-  */
   
   /**
    * nations:                   All the selected nations (if any)
@@ -133,10 +126,13 @@ const UserGrid = () => {
    * loadUpUsers().then((data) => data)
    */
   async function loadUpUsers() {
-    console.log(`Loading nations... ${nations}`);
-    const res = await fetch(
-      `https://randomuser.me/api/?results=${fetchAmount}`
-    );
+    let fetchURL = `https://randomuser.me/api/?results=${fetchAmount}`;
+    const natSTR = `&nat=${nations}`;
+    
+    fetchURL = nations.length > 0 ? fetchURL.concat(natSTR) : fetchURL
+
+    const res = await fetch(fetchURL);
+
     return await res.json();
   }
 
