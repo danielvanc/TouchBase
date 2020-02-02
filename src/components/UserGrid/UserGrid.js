@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import debounce from "lodash.debounce";
 import styled from "styled-components";
 import Contact from "./Contact";
-import NationsContext from "../../Stores";
+import NationsContext, { SearchContext } from "../../Stores";
 
 const ContactsGrid = styled.div`
   display: grid;
@@ -74,6 +74,7 @@ const UserGrid = () => {
    * doPreFetch: setDoPreFetch: Status to know whether we have we done a preFetch
    */
   const [nations] = useContext(NationsContext);
+  const [search] = useContext(SearchContext);
   const totalUsers = 40;
   const fetchAmount = 10;
   const [error, setError] = useState(false);
@@ -126,6 +127,7 @@ const UserGrid = () => {
    * loadUpUsers().then((data) => data)
    */
   async function loadUpUsers() {
+    console.log(`Searching for: ${search}`);
     let fetchURL = `https://randomuser.me/api/?results=${fetchAmount}`;
     const natSTR = `&nat=${nations}`;
     

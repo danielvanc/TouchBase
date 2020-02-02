@@ -1,9 +1,9 @@
 import React from 'react';
 import UserGrid from '../components/UserGrid/UserGrid'
 
-const Home = ({nations}) => {
+const Home = ({ nations,  }) => {
   return (
-    <UserGrid nations={nations} />
+    <UserGrid />
   );
 };
 
